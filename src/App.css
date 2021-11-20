@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+
+.sendReview {
+  /* background-color: ; */
+}
+
+.logoBanner{
+  width: 18%;
+  height: 15%;
+  background-color: rgb(107, 209, 96);
+  transform: skewX(-20deg);
+  margin-left: 5%
+}
+
+.logo {
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  font-size: 4vw;
+  transform: skewX(20deg);
+  text-align: center;
+}
+
+.ify {
+  font-weight: 10;
+}
+
+.slogan {
+  margin-left: 10%;
+  font-family: "ubuntu";
+  font-size: 2vw;
+}
+
+h1 {
+  margin-bottom: 0;
+
+}

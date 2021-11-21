@@ -7,9 +7,6 @@ function App() {
     <>
       <div className="header">
         <img src={logo} className="picLogo" alt="logo"></img>
-        <div className="logoBanner">
-          <h1 className="logo">Tree<span className='ify'>ify</span></h1>
-        </div>
         <div className="slogan">Where Business Meets Sustainability.</div>
       </div>
       <Reviews />

@@ -9,7 +9,10 @@ function SingleReview({ name, review, treeAward, treeCounts, treeReview, company
       tc = treeCount.treeCount;
     }
   })
-
+  if (review === undefined) {
+    return null;
+  }
+  console.log(tc)
   return (
     <div class="card">
       <div class="card-details">
@@ -17,6 +20,7 @@ function SingleReview({ name, review, treeAward, treeCounts, treeReview, company
         <h2>{company}</h2>
         <p>{review}</p>
       </div>
+
       <div className="card-image">
         {treeAward && tc >= 10 ? (
           <img
@@ -29,7 +33,9 @@ function SingleReview({ name, review, treeAward, treeCounts, treeReview, company
         ) : null}
         <p>{treeReview}</p>
       </div>
+ 
     </div>
+    
   );
 }
 

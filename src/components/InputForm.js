@@ -49,16 +49,24 @@ function InputForm() {
     //needs to update an int value from database
   };
 
-  const sendTreeAward = async() => {
+  const sendTreeAward = async () => {
+    let dn = false
     treeCounts.forEach(async (treeCount) => {
       if (treeCount.company === company) {
         let tc = treeCount.treeCount;
         await addDoc(treecountRef, {
           company: company,
-          treeCounts: tc + 1,
+          treeCount: tc + 1,
         });
+        dn = true;
       }
     })
+    if (!dn) {
+      await addDoc(treecountRef, {
+        company: company,
+        treeCounts: treeAward?1:0,
+      });
+    }
   }
   
   return (

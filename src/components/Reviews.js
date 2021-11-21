@@ -32,14 +32,26 @@ function Reviews() {
         setReviews(temp)
         
       })
-      setLoading(false)
+      if (typeof reviews !== "undefined") {
+        setTimeout(() => { setLoading(false); },1000)
+      } else {
+        setLoading(true);
+      }
+      
     }
     console.log(reviews)
 
     const getTreeCounts = async () => {
-      const data = await getDocs(collection(db, "treeCounts"))
-      setTreeCounts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-    }
+      const treeCountRef = await getDocs(collection(db, "treeCounts"));
+      treeCountRef.forEach(async (treeCount) => {
+        const temp = treeCounts;
+        let treecountData = (
+          await getDoc(doc(db, "treeCounts", treeCount.id))
+        ).data();
+        temp.push(treecountData);
+        setTreeCounts(temp);
+      });
+    };
     getTreeCounts();
     getReviews()
     console.log(reviews)
@@ -49,17 +61,23 @@ function Reviews() {
     return (
       <div className="cardContainer">
         <div id="messages">
-          {reviews.map((review) => {
-            console.log(review)
-            return (<SingleReview
-              name={review.user}
-              review={review.review}
-              treeAward={review.treeAward}
-              treeCounts={treeCounts}
-              treeReview={review.treeReview}
-              company={review.company}>
-            </SingleReview>)
-          })}
+          {console.log(reviews.length)}
+          {
+            reviews.map((review) => {
+              console.log("returning single for " + review.name);
+              return (
+                <SingleReview
+                  name={review.name}
+                  review={review.review}
+                  treeAward={review.treeAward}
+                  treeCounts={treeCounts}
+                  treeReview={review.treeReview}
+                  company={review.company}
+                ></SingleReview>
+              );
+            })
+          }
+          
         </div>
       </div>
     )

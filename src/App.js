@@ -4,14 +4,18 @@ import Reviews from './components/Reviews';
 function App() {
   return (
     <>
-    <head>
-    </head>
-      <div class="logoBanner">
-        <h1 class="logo">Tree<span class='ify'>ify</span></h1>
+      <div className="header">
+        <div className="logoBanner">
+          <h1 className="logo">Tree<span className='ify'>ify</span></h1>
+        </div>
+        <div className="slogan">Where Business Meets Sustainability.</div>
       </div>
-      <div class="slogan">Where Business Meets Sustainability.</div>
+      <div className="businessReviews">
+      </div>
       <Reviews />
-      <InputForm></InputForm>
+      <div className="inputGroup">
+        <InputForm></InputForm>
+      </div>
     </>
   );
 }

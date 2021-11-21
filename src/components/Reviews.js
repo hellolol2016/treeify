@@ -4,29 +4,37 @@ import { db } from "../lib/firebase";
 import {
   collection,
   getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
 } from "firebase/firestore";
-
+import SingleReview from "./SingleReview"
 
 function Reviews() {
   const [reviews, setReviews] = useState([]);
-
+  const [treeCounts, setTreeCounts] = useState([]);
   useEffect(() => {
     const getReviews = async () => {
       const data = await getDocs(collection(db, "reviews"));
       setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     };
+
+    const getTreeCounts = async () => {
+      const data = await getDocs(collection(db, "treeCounts"))
+      setTreeCounts(data.docs.map((doc)=>({...doc.data(), id:doc.id})))
+    }
+    getTreeCounts();
     getReviews()
   }, [])
   
   return (
-    <div> 
+    <div className="cardContainer">
       {reviews.map((review) => {
-        console.log(review)
-        return(<h1>{review.name}</h1>)
+        return (<SingleReview
+          name={review.user}
+          review={review.review}
+          treeAward={review.treeAward}
+          treeCounts={treeCounts}
+          treeReview={review.treeReview}
+          company={review.company}>
+          </SingleReview>)
       })}
     </div>
   )

@@ -8,8 +8,11 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  onSnapshot
 } from "firebase/firestore";
 import { kebabCase } from 'lodash';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 function InputForm() {
   const [treeAward, setTreeAward] = useState(false);
   const [username, setUsername] = useState("");
@@ -55,13 +58,11 @@ function InputForm() {
           treeCounts: tc + 1,
         });
       }
-      
     })
-    
-    
   }
   
   return (
+    <>
     <form className="inputs">
       <div className="shortInputs">
         <input
@@ -112,14 +113,20 @@ function InputForm() {
         <button
           className="sendReview btn"
           onClick={function click(e) {
-            sendReview();
-            sendTreeAward();
+            e.preventDefault()
+            toast.success("review submitted!");
+            console.log("sending");
+              sendReview();
+              sendTreeAward();
+            
           }}
         >
           Send!
         </button>
       </div>
     </form>
+    <ToastContainer />
+    </>
   );
 }
 

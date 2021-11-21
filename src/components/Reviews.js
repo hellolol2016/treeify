@@ -3,41 +3,69 @@ import { useState, useEffect } from "react";
 import { db } from "../lib/firebase";
 import {
   collection,
+  getDoc,
+  doc,
+  onSnapshot,
   getDocs,
+  getCollection,
+  collectionGroup,
+  docs,
+  query
 } from "firebase/firestore";
 import SingleReview from "./SingleReview"
 
 function Reviews() {
   const [reviews, setReviews] = useState([]);
   const [treeCounts, setTreeCounts] = useState([]);
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
+    // const getReviews = async () => {
+    //   const data = await getDocs(collection(db, "reviews"));
+    //   setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    // };
     const getReviews = async () => {
-      const data = await getDocs(collection(db, "reviews"));
-      setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-    };
+      const reviewRef = await getDocs(collection(db, 'reviews'));
+      reviewRef.forEach(async (review) => {
+        const temp = reviews;
+        let reviewData = (await getDoc(doc(db, "reviews", review.id))).data();
+        temp.push(reviewData)
+        setReviews(temp)
+        
+      })
+      setLoading(false)
+    }
+    console.log(reviews)
 
     const getTreeCounts = async () => {
       const data = await getDocs(collection(db, "treeCounts"))
-      setTreeCounts(data.docs.map((doc)=>({...doc.data(), id:doc.id})))
+      setTreeCounts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     }
     getTreeCounts();
     getReviews()
+    console.log(reviews)
   }, [])
   
-  return (
-    <div className="cardContainer">
-      {reviews.map((review) => {
-        return (<SingleReview
-          name={review.user}
-          review={review.review}
-          treeAward={review.treeAward}
-          treeCounts={treeCounts}
-          treeReview={review.treeReview}
-          company={review.company}>
-          </SingleReview>)
-      })}
-    </div>
-  )
+  if (!loading) {
+    return (
+      <div className="cardContainer">
+        <div id="messages">
+          {reviews.map((review) => {
+            console.log(review)
+            return (<SingleReview
+              name={review.user}
+              review={review.review}
+              treeAward={review.treeAward}
+              treeCounts={treeCounts}
+              treeReview={review.treeReview}
+              company={review.company}>
+            </SingleReview>)
+          })}
+        </div>
+      </div>
+    )
+  } else {
+    return <div class="loader"></div>;
+  }
 }
 
 

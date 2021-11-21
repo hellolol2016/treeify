@@ -5,15 +5,11 @@ import { kebabCase } from "lodash";
 function SingleReview({ name, review, treeAward, treeCounts, treeReview, company }) {
   let tc = 0
   treeCounts.forEach((treeCount) => {
-    console.log(kebabCase(treeCount.company))
-    console.log(company)
     if (kebabCase(treeCount.company) === kebabCase(company)) {
-      console.log("SAME COMPANY")
       tc = treeCount.treeCount;
-      console.log(treeCount.company)
     }
   })
-  console.log(treeCounts[0].treeCount)
+
   return (
     <div class="card">
       <div class="card-details">

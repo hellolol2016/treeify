@@ -97,9 +97,6 @@ function InputForm() {
           className="treeAward"
           onClick={handleTreeAward}
         ></input>
-        <div className="checkbox__inner">
-			    <div className="green__ball"></div>
-		    </div>
         <label for="input">Tree Award</label>
         {treeAward && (
           <input

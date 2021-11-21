@@ -105,26 +105,21 @@ h1 {
   padding: 20px;
 }
 
-.treeAward {
-  --size: 80px;
-	display: block;
-	width: var(--size);
-	height: var(--size);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 50%;
-	background: var(--bg);
-	box-shadow: 
-		2px 2px 3px rgba(black, 0.12), 2px 2px 6px rgba(black, 0.05),
-		2px 2px 10px rgba(black, 0.025), inset -2px -2px 3px rgba(black, 0.05),
-		inset -2px -2px 8px rgba(black, 0.02), inset 1px 3px 3px rgba(white, 0.45),
-		inset 3px 8px 25px rgba(white, 0.35), inset 3px 2px 3px rgba(white, 0.35),
-		inset 3px 2px 5px rgba(white, 0.2), inset 2px 3px 8px rgba(white, 0.085),
-		inset 3px 2px 18px rgba(white, 0.05), inset 2px 3px 25px rgba(white, 0.025),
-		inset 8px 8px 18px rgba(white, 0.1), inset 8px 8px 25px rgba(white, 0.05);
-	cursor: pointer;
+.treeAward input {
+  border-radius: 50%;
+}
 
+.treeAward input :after{
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  transform: scale(var(--s, .7));
+}
+
+.treeAward input :checked{
+  --s: .5;
 }
 
 .companyName {
